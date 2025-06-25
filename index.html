@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online CGPA calculator with beautiful design. Calculate your Cumulative Grade Point Average instantly with credits and grades input.">
+    <meta name="keywords" content="CGPA calculator, GPA calculator, grade calculator, academic calculator, student tools">
+    <meta name="author" content="Praveen">
+    <meta property="og:title" content="CGPA Calculator - Free Online Tool">
+    <meta property="og:description" content="Calculate your CGPA easily with our beautiful, user-friendly calculator">
+    <meta property="og:type" content="website">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+    <title>CGPA Calculator - Free Online Tool by Praveen</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff6b6b, #ffd93d);
+            padding: 30px;
+            text-align: center;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            padding: 40px;
+        }
+
+        .input-section {
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 1.1rem;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #fafafa;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .grade-scale {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+
+        .grade-scale h3 {
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .grade-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 10px;
+            text-align: center;
+        }
+
+        .grade-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .calculate-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #00b894, #00a085);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 25px;
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 184, 148, 0.3);
+        }
+
+        .result-section {
+            background: linear-gradient(135deg, #fdcb6e, #e17055);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 25px;
+            display: none;
+        }
+
+        .result-section.show {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .cgpa-display {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 15px 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .features {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+
+        .features h3 {
+            color: #333;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .feature-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .clear-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #e17055, #d63031);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-bottom: 15px;
+        }
+
+        .developer {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+        }
+
+        .error {
+            background: #ff6b6b;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .tips {
+            background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+
+        .tips h4 {
+            margin-bottom: 10px;
+        }
+
+        .tips ul {
+            margin-left: 20px;
+        }
+
+        .tips li {
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+            
+            .cgpa-display {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 CGPA Calculator</h1>
+            <p>Calculate your Cumulative Grade Point Average with ease</p>
+        </div>
+
+        <div class="main-content">
+            <div class="grade-scale">
+                <h3>📊 Grading Scale</h3>
+                <div class="grade-grid">
+                    <div class="grade-item">S = 10</div>
+                    <div class="grade-item">A = 9</div>
+                    <div class="grade-item">B = 8</div>
+                    <div class="grade-item">C = 7</div>
+                    <div class="grade-item">D = 6</div>
+                    <div class="grade-item">E = 5</div>
+                    <div class="grade-item">F = Fail</div>
+                </div>
+            </div>
+
+            <div class="tips">
+                <h4>💡 How to Use:</h4>
+                <ul>
+                    <li>Enter credits separated by spaces (e.g., "4 3 2 4 3")</li>
+                    <li>Enter corresponding grades (e.g., "S A B A C")</li>
+                    <li>Make sure the number of credits and grades match</li>
+                    <li>Use letters: S, A, B, C, D, E, F (case insensitive)</li>
+                </ul>
+            </div>
+
+            <div class="error" id="errorMsg"></div>
+
+            <div class="input-section">
+                <div class="input-group">
+                    <label for="credits">📚 Enter Credits (separated by spaces):</label>
+                    <input type="text" id="credits" placeholder="e.g., 4 3 2 4 3" />
+                </div>
+
+                <div class="input-group">
+                    <label for="grades">📝 Enter Grades (separated by spaces):</label>
+                    <input type="text" id="grades" placeholder="e.g., S A B A C" />
+                </div>
+            </div>
+
+            <button class="calculate-btn" onclick="calculateCGPA()">
+                🧮 Calculate CGPA
+            </button>
+
+            <button class="clear-btn" onclick="clearAll()">
+                🗑️ Clear All
+            </button>
+
+            <div class="result-section" id="resultSection">
+                <h3>🎯 Your CGPA Result</h3>
+                <div class="cgpa-display" id="cgpaDisplay">0.00</div>
+                <p id="gradeStatus"></p>
+                <p>Total Credits: <span id="totalCredits">0</span></p>
+            </div>
+
+            <div class="features">
+                <h3>✨ Features</h3>
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <strong>🚀 Quick Calculation</strong>
+                        <p>Instant CGPA results</p>
+                    </div>
+                    <div class="feature-item">
+                        <strong>📱 Mobile Friendly</strong>
+                        <p>Works on all devices</p>
+                    </div>
+                    <div class="feature-item">
+                        <strong>🎨 Beautiful Design</strong>
+                        <p>Modern colorful interface</p>
+                    </div>
+                    <div class="feature-item">
+                        <strong>❌ Error Detection</strong>
+                        <p>Smart input validation</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="developer">
+                <p>💻 Developed with ❤️ by <strong>Praveen</strong></p>
+                <p>© 2025 Praveen. All rights reserved.</p>
+                <p style="margin-top: 10px; font-size: 0.9rem;">
+                    <a href="mailto:contact@praveen.dev" style="color: #667eea; text-decoration: none;">📧 Contact</a> | 
+                    <a href="#" onclick="showAbout()" style="color: #667eea; text-decoration: none; margin-left: 10px;">ℹ️ About</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function calculateCGPA() {
+            const creditsInput = document.getElementById('credits').value.trim();
+            const gradesInput = document.getElementById('grades').value.trim().toUpperCase();
+            const errorMsg = document.getElementById('errorMsg');
+            const resultSection = document.getElementById('resultSection');
+            
+            // Clear previous errors
+            errorMsg.style.display = 'none';
+            
+            if (!creditsInput || !gradesInput) {
+                showError('Please enter both credits and grades!');
+                return;
+            }
+            
+            const credits = creditsInput.split(/\s+/).map(c => parseFloat(c));
+            const grades = gradesInput.split(/\s+/);
+            
+            // Validation
+            if (credits.length !== grades.length) {
+                showError('Number of credits and grades must match!');
+                return;
+            }
+            
+            if (credits.some(c => isNaN(c) || c <= 0)) {
+                showError('All credits must be positive numbers!');
+                return;
+            }
+            
+            const gradePoints = {
+                'S': 10, 'A': 9, 'B': 8, 'C': 7, 
+                'D': 6, 'E': 5, 'F': 0
+            };
+            
+            let totalPoints = 0;
+            let totalCredits = 0;
+            let hasInvalidGrade = false;
+            
+            for (let i = 0; i < grades.length; i++) {
+                const grade = grades[i];
+                if (!gradePoints.hasOwnProperty(grade)) {
+                    showError(`Invalid grade: ${grade}. Use S, A, B, C, D, E, or F`);
+                    hasInvalidGrade = true;
+                    break;
+                }
+                
+                totalPoints += credits[i] * gradePoints[grade];
+                totalCredits += credits[i];
+            }
+            
+            if (hasInvalidGrade) return;
+            
+            const cgpa = totalPoints / totalCredits;
+            
+            // Display results
+            document.getElementById('cgpaDisplay').textContent = cgpa.toFixed(2);
+            document.getElementById('totalCredits').textContent = totalCredits.toFixed(1);
+            document.getElementById('gradeStatus').textContent = getGradeStatus(cgpa);
+            
+            resultSection.classList.add('show');
+            resultSection.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function getGradeStatus(cgpa) {
+            if (cgpa >= 9.5) return '🌟 Outstanding Performance!';
+            if (cgpa >= 8.5) return '🎉 Excellent Work!';
+            if (cgpa >= 7.5) return '👍 Very Good!';
+            if (cgpa >= 6.5) return '✅ Good Progress!';
+            if (cgpa >= 5.5) return '📚 Keep Working Hard!';
+            return '💪 Time to Focus More!';
+        }
+        
+        function showError(message) {
+            const errorMsg = document.getElementById('errorMsg');
+            errorMsg.textContent = message;
+            errorMsg.style.display = 'block';
+            errorMsg.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function clearAll() {
+            document.getElementById('credits').value = '';
+            document.getElementById('grades').value = '';
+            document.getElementById('errorMsg').style.display = 'none';
+            document.getElementById('resultSection').classList.remove('show');
+        }
+        
+        // Enter key support
+        document.getElementById('credits').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('grades').focus();
+            }
+        });
+        
+        document.getElementById('grades').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                calculateCGPA();
+            }
+        });
+    </script>
+</body>
+</html>
